@@ -43,7 +43,7 @@ axios.interceptors.response.use(
       return res
     } else {
       loadingInstance.close()
-      Message.error(res.data.data)
+      Message.error(res.data.data.msg)
       return res.data
     }
   },
