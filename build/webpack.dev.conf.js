@@ -12,6 +12,10 @@ const portfinder = require('portfinder')
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
+console.log('process.env.PORT:', process.env.PORT)
+console.log('config.dev.port:', config.dev.port)
+console.log('config.dev.PORT:', config.dev.PORT)
+
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -42,7 +46,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     quiet: true, // necessary for FriendlyErrorsPlugin
     watchOptions: {
       poll: config.dev.poll,
-    }
+    },
+    disableHostCheck: true,
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -55,7 +60,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: 'index.html',
-      inject: true
+      inject: true,
+      favicon: path.resolve('./static/favicon.ico')
     }),
     // copy custom static assets
     new CopyWebpackPlugin([

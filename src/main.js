@@ -7,6 +7,7 @@ import ElementUI from 'element-ui'
 import axios from 'axios'
 import _ from 'loadsh'
 import api from '@/api/api.js'
+import store from '../store/index'
 
 // import 'element-ui/lib/theme-chalk/index.css'
 import '@/style/theme/index.css'
@@ -27,6 +28,7 @@ Vue.prototype._ = _
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

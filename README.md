@@ -9,6 +9,7 @@
 1.3  文章导出
 
 1.4  后台登录页
+1.4.1 登录验证及将token保存到store中 
 
 1.5  文章看板（文章阅读，点击排行）
 
@@ -24,3 +25,7 @@
 - 安装less及less-loader，不要在rules中配置loader，否则会报错
 - 引用时注意引用顺序，会导致样式被层叠掉
 
+### 2. 配置favicon图标
+- 在`webpack.dev.conf`及`webpack.prod.conf HtmlWebpackPlugin`中添加`favicon: path.resolve('./static/favicon.ico')`
+
+### 3.
