@@ -18,7 +18,7 @@
       </el-row>
       <el-row class="fz12 c-333">
         <el-col :span="8"><el-checkbox class="mr-10" v-model="remember"></el-checkbox ><span class="ml-10 cp">记住密码</span></el-col>
-        <el-col :span="8" class="cp">找回密码</el-col>
+        <el-col :span="8" class="cp" @click.native="$router.push('/findPassword')">找回密码</el-col>
         <el-col :span="8" class="cp"><span  @click="register">注册</span></el-col>
       </el-row>
      </el-col>

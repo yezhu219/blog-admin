@@ -1,6 +1,7 @@
 <template>
-  <el-container>
-    <el-form :model="user" ref="user" label-width="100px" :rules="rules" size="mini" class="info-box">
+  <el-container class="register">
+    <el-form :model="user" ref="user" label-width="100px" label-position="left" :rules="rules" size="mini" class="info-box box-s1 c-333">
+      <el-row class="text-c fz28 c-333 mb-20">用户注册</el-row>
       <el-form-item label="用户名:" prop="uName">
         <el-input  v-model="user.uName"></el-input>
       </el-form-item>
@@ -10,9 +11,10 @@
       <el-form-item label="确认密码:" prop="cpwd">
         <el-input v-model="user.cpwd" type="password"></el-input>
       </el-form-item>
-      <el-form-item class="text-c">
+      <el-row class="text-c">
         <el-button type="primary" @click="submit(user)">注册</el-button>
-      </el-form-item>
+        <el-button type="danger" @click="$router.push('/login')">返回</el-button>
+      </el-row>
     </el-form>
   </el-container>
 </template>
@@ -20,8 +22,19 @@
 <script>
 export default {
   data() {
-    
-      var validatePass = (rule, value, callback) => {
+      let validateUserName = async (rule,value,callback) => {
+        if(value== '') {
+          callback(new Error('请输入用户名'))
+        }else {
+          const res = await this.$api.checkUserName({userName:value})
+          if(!res.data) {
+            callback(new Error('用户名已被注册，请更换用户名'))
+          }else {
+            callback()
+          }
+        }
+      }
+      let validatePass = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('请再次输入密码'));
         } else if (value !== this.user.pwd) {
@@ -39,7 +52,8 @@ export default {
       rules:{
         uName:[
           { required: true, message:'请输入用户名',trigger:'blur'},
-          { min:5,message:'用户名长度必须大于5',trigger:'blur'}
+          { min:5,message:'用户名长度必须大于5',trigger:'blur'},
+          {validator: validateUserName,trigger:'blur'},
         ],
         pwd:[
           { required: true, message:'请输入密码',trigger:'blur'},
@@ -56,36 +70,33 @@ export default {
     submit(user) {
       this.$refs.user.validate(valid=> {
         if(valid) {
-          console.log(valid)
+          this.$api.register(this.user).then(res=>{
+            if( res.data.msg == 'sucess') {
+              this.$router.push('/login')
+            }
+          })
         }else {
           console.log('验证失败')
           return false
         }
       })
     }
-      //  submit(formName) {
-      //    console.log(this.$refs.user)
-      //   this.$refs[formName].validate((valid) => {
-      //     if (valid) {
-      //       alert('submit!');
-      //     } else {
-      //       console.log('error submit!!');
-      //       return false;
-      //     }
-      //   });
-      // },
   }
 }
 </script>
 
 <style lang="less">
-.info-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  width: 400px;
-  margin: 0 auto;
-  padding: 0 30px;
+.register {
+   height: 100%;
+  background-image: linear-gradient(-20deg, #00cdac 0%, #8ddad5 100%);
+  .info-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    padding: 30px;
+    background-color: rgba(0,0,0,.3);
+  }
 }
 </style>
