@@ -11,16 +11,16 @@
       </el-col>
       <el-col v-if="step==0">
         <el-row class="step-mail mg-a">
-          <el-col :span="6" class="lh-40">请输入邮箱：</el-col>
-          <el-col :span="18"><el-input v-model.trim="email" @change="validateEmail"></el-input></el-col>
+          <el-col :span="10" class="lh-40 text-r">请输入邮箱：</el-col>
+          <el-col :span="10"><el-input v-model.trim="email" @change="validateEmail"></el-input></el-col>
           <el-col class="text-c mt-20"><el-button type="primary" @click="nextStep">下一步</el-button></el-col>
         </el-row>
       </el-col>
       <el-col v-if="step==1">
         <el-row class="step-mail mg-a">
-          <el-col class="mb-20">已经向您的邮箱{{email}}发送了验证码，请登录邮箱查看验证码</el-col>
+          <el-col class="mb-20 text-c">已经向您的邮箱{{email}}发送了验证码，请登录邮箱查看验证码</el-col>
           <el-col :span="10" class="lh-40 text-r">请输入邮箱验证码：</el-col>
-          <el-col :span="10"><el-input v-model.trim="email" @change="validateEmail"></el-input></el-col>
+          <el-col :span="5"><el-input v-model.trim="authCode" @change="validateEmail"></el-input></el-col>
           <el-col class="text-c mt-20"><el-button type="primary" @click="nextStep">下一步</el-button></el-col>
         </el-row>
       </el-col>
@@ -36,7 +36,8 @@ export default {
   data() {
     return {
       step:0,
-      email:''
+      email:'',
+      authCode:''
     }
   },
   methods: {
@@ -81,7 +82,7 @@ export default {
       margin-bottom: 100px;
     }
     .step-mail {
-      width: 500px;
+      // width: 500px;
     }
   }
 }

@@ -43,7 +43,7 @@ axios.interceptors.response.use(
       return res
     } else {
       loadingInstance.close()
-      Message.error(res.data.data.msg)
+      Message.error(res.data.data.msg||'网络错误')
       return res.data
     }
   },
