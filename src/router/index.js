@@ -1,13 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import index from '@/page/index'
+import index from '@/page/backend/index'
 import login from '@/page/login'
 import register from '@/page/register'
 import findPassword from '@/page/findPassword'
 
+
+import backendRouter from '@/router/backend/index'
+
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode:'history',
   routes: [
     {
@@ -31,9 +34,14 @@ export default new Router({
       component: findPassword
     },
     {
-      path: '/index',
-      name:'index',
-      component:index
+      path: '/backend',
+      name: 'backend',
+      component:index,
+      children: backendRouter
     }
   ]
 })
+
+// router.addRoutes(backend)
+
+export default router

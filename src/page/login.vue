@@ -46,7 +46,7 @@ export default {
         localStorage.setItem('remember',this.remember)
         localStorage.setItem('userName',this.userName)
         localStorage.setItem('password',this.password)
-        this.$router.push('/index')
+        this.$router.push('/backend/dashboard')
       }
     },
     register() {
