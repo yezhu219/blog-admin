@@ -111,6 +111,7 @@ export default {
             type:'error',
             message:'两次密码输入不一致，请重新输入'
           })
+          return 
         }
       }
       if (this.step++ > 3) this.active = 3;
@@ -132,9 +133,6 @@ export default {
     .step {
       margin-top: 50px;
       margin-bottom: 100px;
-    }
-    .step-mail {
-      // width: 500px;
     }
   }
 }

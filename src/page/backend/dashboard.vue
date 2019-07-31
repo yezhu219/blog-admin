@@ -1,13 +1,6 @@
 <template>
   <div>
-        <el-date-picker
-      v-model="value"
-      type="daterange"
-      range-separator="至"
-      start-placeholder="开始日期"
-      end-placeholder="结束日期">
-    </el-date-picker>
-  <h1>{{value}}</h1>
+    dashboard
   </div>
 </template>
 
