@@ -1,7 +1,7 @@
 <template>
   <el-row class="b-header">
     <el-col :span="3"><img src="../assets/img/logo.png" class="logo"></el-col>
-    <el-col :span="13"> BLOG后台管理系统</el-col>
+    <el-col :span="13"> BLOG管理系统</el-col>
     <el-col :span="8" class="fz14 c-333 text-r">
       <el-col :span="15">
         <el-input size="mini" class="va-m" v-model="searchValue">

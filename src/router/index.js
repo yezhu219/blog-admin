@@ -36,7 +36,7 @@ const router = new Router({
     {
       path: '/backend',
       name: 'backend',
-      component:index,
+      component: index,
       children: backendRouter
     }
   ]
