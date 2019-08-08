@@ -2,6 +2,7 @@ import dashboard from '@/page/backend/dashboard'
 import article from '@/page/backend/article'
 import setting from '@/page/backend/setting'
 import crawler from '@/page/backend/crawler'
+import articleClassify from '@/page/backend/articleClassify'
 
 
 const backendRouter = [
@@ -37,6 +38,14 @@ const backendRouter = [
       title: '设置'
     }
   },
+  {
+    path: 'articleClassify',
+    name: 'articleClassify',
+    component: articleClassify,
+    meta: {
+      title: '文章标签'
+    }
+  }
 ]
 
 

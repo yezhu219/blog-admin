@@ -39,11 +39,11 @@
             <el-breadcrumb-item>活动管理</el-breadcrumb-item>
             <el-breadcrumb-item>活动列表</el-breadcrumb-item>
             <el-breadcrumb-item>活动详情</el-breadcrumb-item> -->
-            <el-breadcrumb-item v-for="item in breadLIst" :key="item" :to="item">{{}}</el-breadcrumb-item>
+            <el-breadcrumb-item v-for="item in breadLIst" :key="item" :to="item">{{item}}</el-breadcrumb-item>
           </el-breadcrumb>
           <router-view></router-view>
         </el-main>
-        <el-footer> footer</el-footer>
+        <el-footer class="text-c b-footer"> @POWERED BY  WangBing</el-footer>
       </el-container>
     </el-container>
   </el-container>
@@ -59,7 +59,7 @@ export default {
       navList:[
         {name:"首页",path:'dashboard'},
         // {name:'文章管理',children:[{name:'编辑' },{name:'搜索'}]},
-        {name:'文章管理',path:'article'},
+        {name:'文章管理',children:[{name:'文章列表',path:'article'},{name:'文章分类',path:'articleClassify'}]},
         {name:'爬取文章',path:'crawler'},
         {name:'设置',path:'setting'},
       ],
@@ -70,7 +70,7 @@ export default {
   methods: {
     handleSelect(key, keyPath) {
       this.$router.push(key)
-        // this.breadLIst = keyPath
+        this.breadLIst = keyPath
       }
   },
   components: {
@@ -89,6 +89,10 @@ export default {
   }
   .b-aside {
     height: 100%;
+  }
+  .b-footer {
+    box-shadow: 2px 2px 9px 1px rgba(0, 0, 0, 0.1);
+    line-height: 60px;
   }
 }
 </style>

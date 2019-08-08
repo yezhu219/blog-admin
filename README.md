@@ -28,4 +28,16 @@
 ### 2. 配置favicon图标
 - 在`webpack.dev.conf`及`webpack.prod.conf HtmlWebpackPlugin`中添加`favicon: path.resolve('./static/favicon.ico')`
 
-### 3.
+### 3. table 配置class
+
+```js
+rowClass({row,rowIndex}) {
+        console.log(rowIndex%2)
+        if(rowIndex%2==1) {
+          return ''
+        }
+        return 'green'
+      }
+//  样式必须加上.el-table父类     
+```     
+### 4.  
