@@ -11,10 +11,14 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 
 const HOST = process.env.HOST
-const PORT = process.env.PORT && Number(process.env.PORT)
+const PORT = config['dev'].port //process.env.PORT && Number(process.env.PORT)
+
+console.log('process.env:', config['dev'])
+console.log('process.env:', process.env.NODE_ENV)
 console.log('process.env.PORT:', process.env.PORT)
+console.log('process.env.baseUrl:', process.env.baseUrl)
 console.log('config.dev.port:', config.dev.port)
-console.log('config.dev.PORT:', config.dev.PORT)
+
 
 
 const devWebpackConfig = merge(baseWebpackConfig, {

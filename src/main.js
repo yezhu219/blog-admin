@@ -18,7 +18,7 @@ import './assets/css/resetFram.less'
 import './assets/css/public.less'
 
 Vue.use(ElementUI)
-
+console.log(process.env.baseUrl,'VUEiNDEX')
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
 Vue.prototype.$api = api

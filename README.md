@@ -40,4 +40,25 @@ rowClass({row,rowIndex}) {
       }
 //  样式必须加上.el-table父类     
 ```     
-### 4.  
+### 4. 表格导出为excel
+1. 下载 Blob.js及Export2Excel.js
+2. 安装 file-saver  xlsx -S    全局安装script-loader -D
+3. 导出方法
+
+```js
+handleDownload() {
+      this.downloadLoading = true
+      require.ensure([], () => {
+        const { export_json_to_excel } = require('@/vendor/Export2Excel')
+        const tHeader = ['日期', '姓名', '地址']  
+        const filterVal = ['date', 'name', 'address']
+        const list = this.tableData
+        const data = this.formatJson(filterVal, list)
+        export_json_to_excel(tHeader, data, '列表excel') //参数 表头，数据来源，文件名
+        this.downloadLoading = false
+      })
+    },
+    formatJson(filterVal, jsonData) {
+      return jsonData.map(v => filterVal.map(j => v[j]))
+    }
+```    
