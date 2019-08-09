@@ -11,10 +11,10 @@
       </el-row>
       <el-row class=" mb-20 fz12 ">
         <el-col  class="item" >密码：</el-col>
-        <el-col ><input type="password" class="b-input fz12 c-666" v-model="password"></el-col>
+        <el-col ><input type="password" class="b-input fz12 c-666" v-model="password" @keydown.enter="login" ></el-col>
       </el-row>
       <el-row class="mb-20">
-        <button class="btn-login cp" @click="login">登录</button>
+        <button class="btn-login cp" @click="login" >登录</button>
       </el-row>
       <el-row class="fz12 c-333">
         <el-col :span="8"><el-checkbox class="mr-10" v-model="remember"></el-checkbox ><span class="ml-10 cp">记住密码</span></el-col>
@@ -40,6 +40,11 @@ export default {
   },
   methods: {
     async login(){
+      console.log(this.password,this.userName)
+      if(!this.userName || !this.password) {
+        console.log('aaa')
+        return
+      }
       let { data } = await this.$api.login({userName:this.userName,password:this.password,remember:this.remember})
       if(data.msg=='sucess') {
         this.$store.commit('setToken',data.token)

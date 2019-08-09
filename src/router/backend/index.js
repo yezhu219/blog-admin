@@ -3,6 +3,7 @@ import article from '@/page/backend/article'
 import setting from '@/page/backend/setting'
 import crawler from '@/page/backend/crawler'
 import articleClassify from '@/page/backend/articleClassify'
+import exportExcelDemo from '@/page/backend/exportExcelDemo'
 
 
 const backendRouter = [
@@ -45,7 +46,16 @@ const backendRouter = [
     meta: {
       title: '文章标签'
     }
-  }
+  },
+  {
+    path: 'exportExcelDemo',
+    name: 'exportExcelDemo',
+    component: exportExcelDemo,
+    meta: {
+      title: 'excel导入导出'
+    }
+  },
+
 ]
 
 

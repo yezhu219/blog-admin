@@ -1,136 +1,91 @@
 <template>
- <div>
-    <el-table
-    :data="tableData"
-    stripe
-    style="width: 100%">
-    <el-table-column
-      prop="date"
-      label="日期"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="姓名"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      v-if="showAge()"
-      prop="age"
-      label="年龄"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="address"
-      label="地址">
-    </el-table-column>
-    
-  </el-table>
-  <el-button type="primary" @click="handleDownload" :loading="downloadLoading" class="mt-20">导出为excel</el-button>
-  <el-button type="primary" @click="handleUplaod" :loading="downloadLoading" class="mt-20">导入excel数据</el-button>
-  <input type="file" v-show="false" ref="uploadExcel" accept=".xls,.xlsx" @change="readExcel">
- </div>
+  <div class="classify">
+    <el-button type="primary" class="mb-20" @click="addClassify"
+      >增加分类</el-button
+    >
+    <div class="table-classify">
+      <el-table :data="classify" size="mini" border>
+        <el-table-column type="index"></el-table-column>
+        <el-table-column
+          prop="name"
+          label="分类名"
+          width="200"
+        ></el-table-column>
+        <el-table-column prop="type" label="颜色" width="200"></el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button
+              type="primary"
+              size="mini"
+              @click="editClassify(scope.row)"
+              >编辑</el-button
+            >
+            <el-button type="danger" size="mini" @click="delClassify(scope.row)"
+              >删除</el-button
+            >
+          </template>
+        </el-table-column>
+      </el-table>
+      <el-dialog title="添加分类" center :visible.sync="showAdd" >
+        <el-form :model="classifyData" label-width="100px">
+          <el-form-item label="分类名称">
+            <el-input v-model="classifyData.name"></el-input>
+          </el-form-item>
+          <el-form-item label="颜色">
+            <el-select v-model="classifyData.color">
+              <el-option label="danger1" value="danger1"></el-option>
+              <el-option label="danger2" value="danger2"></el-option>
+              <el-option label="danger3" value="danger3"></el-option>
+              <el-option label="danger4" value="danger4"></el-option>
+              <el-option label="dange5" value="danger5"></el-option>
+            </el-select>
+          </el-form-item>
+        </el-form>
+        <div slot="footer">
+          <el-button type="primary" @click="submitAdd" > 提交</el-button>
+          <el-button type="warning" @click="showAdd=false" > 取消</el-button>
+        </div>
+      </el-dialog>
+    </div>
+  </div>
 </template>
 
 <script>
-import XLSX from 'xlsx'
-  export default {
-    data() {
-      return {
-        tableData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄',
-          age:''
-        }, {
-          date: '2016-05-04', 
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄',
-          age:''
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄',
-          age:''
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄',
-          age:''
-        }],
-        downloadLoading:false,
-        arrList:[],
-        show: false
+export default {
+  data() {
+    return {
+      classify: [
+        { id: 1, name: 'js', type: 'warning' },
+        { id: 1, name: 'html', type: 'warning' },
+        { id: 1, name: 'css', type: 'warning' },
+        { id: 1, name: 'node', type: 'warning' }
+      ],
+      showAdd: false,
+      classifyData: {
+        name: '',
+        type: ''
       }
-    },
-    methods: {
-    handleDownload() {
-      this.downloadLoading = true
-      require.ensure([], () => {
-        const { export_json_to_excel } = require('@/vendor/Export2Excel')
-        const tHeader = ['日期', '姓名', '地址','ceshi']
-        const filterVal = ['date', 'name', 'address']
-        const list = this.tableData
-        const data = this.formatJson(filterVal, list)
-        export_json_to_excel(tHeader, data, '列表excel')
-        this.downloadLoading = false
-      })
-    },
-    formatJson(filterVal, jsonData) {
-      return jsonData.map(v => filterVal.map(j => v[j]))
-    },
-    handleUplaod(){
-      this.$refs.uploadExcel.click()
-    },
-    readExcel(e) {
-     const files = e.target.files;
-      if (files.length <= 0) {
-          //如果没有文件名
-          return false;
-      }
-      const fileReader = new FileReader();
-      fileReader.onload = ev => {
-        try {
-          const data = ev.target.result;
-          const workbook = XLSX.read(data, {
-            type: "binary"
-              
-          });
-        const wsname = workbook.SheetNames[0]; //取第一张表
-        const ws = XLSX.utils.sheet_to_json(workbook.Sheets[wsname]); //获取到XLSX表格中的数据,并生成json格式的数据类型
-        console.log(ws,666);
-        // const arr= [{'地址':'adress'},{'姓名':'name'},{'年龄':'age'},{'日期':'date'}]
-         const arr = this.formateKey(ws) 
-         console.log(arr,777) 
-         arr.forEach(item=> this.tableData.push(item)) 
-        //this.tableData.push(arr)//给arrList赋值,确定导入时传入
-        // console.log(this.arrList,999)
-      } catch (e) {
-         console.log(e)
-        }
-      }
-      fileReader.readAsBinaryString(files[0]);
-    },
-    showAge(){
-      const res= this.tableData.every(item=> item.age !='') 
-      // console.log(res,1111)
-      return res
-    },
-    formateKey(data) {
-      let arr= []
-      data.forEach(item=>{
-        arr.push({
-          address:item['地址'],
-          name:item['姓名'],
-          date:item['日期'],
-          age:item['年龄'],
-        })
-      })
-      return arr
     }
   },
-  created(){
-    // this.showAge()
+  created() {},
+  methods: {
+    addClassify() {
+      this.showAdd = true
+    },
+    editClassify(data) {},
+    delClassify(data) {},
+    submitAdd() {
+      this.showAdd = false
+    }
   }
 }
 </script>
+
+<style lang="less">
+// .classify {
+//   min-width: 800px;
+// }
+.table-classify {
+  width: 600px;
+}
+</style>

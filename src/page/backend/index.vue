@@ -39,7 +39,11 @@ export default {
       navList:[
         {name:"首页",path:'dashboard'},
         // {name:'文章管理',children:[{name:'编辑' },{name:'搜索'}]},
-        {name:'文章管理',children:[{name:'文章列表',path:'article'},{name:'文章分类',path:'articleClassify'}]},
+        {name:'文章管理',children:[
+          {name:'文章列表',path:'article'},
+          {name:'文章分类',path:'articleClassify'},
+          {name:'excel导入导出',path:'exportExcelDemo'}
+          ]},
         {name:'爬取文章',path:'crawler'},
         {name:'设置',path:'setting'},
       ],

@@ -14,7 +14,6 @@ const HOST = process.env.HOST
 const PORT = config['dev'].port //process.env.PORT && Number(process.env.PORT)
 
 console.log('process.env:', config['dev'])
-console.log('process.env:', process.env.NODE_ENV)
 console.log('process.env.PORT:', process.env.PORT)
 console.log('process.env.baseUrl:', process.env.baseUrl)
 console.log('config.dev.port:', config.dev.port)
