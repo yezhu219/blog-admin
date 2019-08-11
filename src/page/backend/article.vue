@@ -10,27 +10,30 @@
     <el-table-column type="selection" width="50" label="全选"></el-table-column>
     <el-table-column type="index" width="50"></el-table-column>
     <el-table-column
-      prop="tile"
+      prop="title"
       label="标题"
       width="180"
     >
     </el-table-column>
     <el-table-column
-      prop="name"
+      prop="author"
       label="作者"
       width="180">
     </el-table-column>
     <el-table-column
       prop="tag"
       label="标签"
-      width="100"
-      :filters="[{ text: '家', value: '家' }, { text: '公司', value: '公司' }]"
+     
+      :filters="getTextArray()"
       :filter-method="filterTag"
       filter-placement="bottom-end">
       <template slot-scope="scope">
         <el-tag
-          :type="scope.row.tag === '家' ? 'primary' : 'success'"
-          disable-transitions>{{scope.row.tag}}</el-tag>
+        v-for=" (tag,index) in scope.row.tag"
+        :key="index"
+        :type="getType(tag)"
+        style="margin-right:5px;"
+        disable-transitions>{{tag}}</el-tag>
       </template>
     </el-table-column>
      <el-table-column
@@ -62,48 +65,55 @@
   export default {
     data() {
       return {
-        tableData: [{
-          date: '2016-05-02',
-          name: '王小虎1',
-          address: '上海市普陀区金沙江路 1518 弄',
-          tag: '家',
-          id:'21'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎2',
-          address: '上海市普陀区金沙江路 1517 弄',
-          tag: '公司',
-          id:'21'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎3',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '家',
-          id:'21'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎4',
-          address: '上海市普陀区金沙江路 1516 弄',
-          tag: '公司',
-          id:'21'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎5',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '家',
-          id:'21'
-        },
-         {
-          date: '2016-05-01',
-          name: '王小虎6',
-          address: '上海市普陀区金沙江路 1519 弄',
-          tag: '家',
-          id:'21'
-        }],
+        tableData: [
+        //   {
+        //   date: '2016-05-02',
+        //   name: '王小虎1',
+        //   address: '上海市普陀区金沙江路 1518 弄',
+        //   tag: '家',
+        //   id:'21'
+        // }, {
+        //   date: '2016-05-04',
+        //   name: '王小虎2',
+        //   address: '上海市普陀区金沙江路 1517 弄',
+        //   tag: '公司',
+        //   id:'21'
+        // }, {
+        //   date: '2016-05-01',
+        //   name: '王小虎3',
+        //   address: '上海市普陀区金沙江路 1519 弄',
+        //   tag: '家',
+        //   id:'21'
+        // }, {
+        //   date: '2016-05-03',
+        //   name: '王小虎4',
+        //   address: '上海市普陀区金沙江路 1516 弄',
+        //   tag: '公司',
+        //   id:'21'
+        // }, {
+        //   date: '2016-05-01',
+        //   name: '王小虎5',
+        //   address: '上海市普陀区金沙江路 1519 弄',
+        //   tag: '家',
+        //   id:'21'
+        // },
+        //  {
+        //   date: '2016-05-01',
+        //   name: '王小虎6',
+        //   address: '上海市普陀区金沙江路 1519 弄',
+        //   tag: '家',
+        //   id:'21'
+        // }
+        ],
       selected:[]
       }
     },
+    async created(){
+      let {list} = await this.$api.getArticleList()
+      this.tableData = list
+    },
     methods: {
+      
       formatter(row, column) {
         return row.date;
       },
@@ -123,6 +133,33 @@
       },
       delSelected() {
 
+      },
+      getTextArray() {
+        const arr= []
+        this.tableData.forEach(item=>{
+         item.tag.forEach(v=> {
+           if(arr.length != 0) {
+            let bool= arr.some(i=> i.text==v)
+            if(!bool) arr.push({text:v,value:v})
+           }else {
+             arr.push({text:v,value:v}) 
+           }
+         })
+        })
+        console.log(arr,111)
+        return arr
+      },
+      getType(tag) {
+        switch(tag) {
+          case 'js':
+            return 'sucess'
+          case 'html':
+            return 'info'
+          case 'css':
+            return  'danger'
+          default:
+            return 'warning'
+        }
       }
      
     }

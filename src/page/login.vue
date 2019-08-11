@@ -40,7 +40,6 @@ export default {
   },
   methods: {
     async login(){
-      console.log(this.password,this.userName)
       if(!this.userName || !this.password) {
         console.log('aaa')
         return

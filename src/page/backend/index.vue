@@ -61,12 +61,10 @@ export default {
   methods: {
     getBreadList() {
       const matched = this.$route.matched.filter(item=>item.name)
-      console.log(matched,11)
       this.breadLIst = matched
     },
     handleSelect(key, keyPath) {
       this.$router.push(key)
-        // this.breadLIst = keyPath
       }
   },
   components: {

@@ -22,5 +22,9 @@ export default {
   //验证邮箱验证码
   async checkAuthCode(params) {
     return await post('/checkAuthCode',params)
+  },
+  // 获取文章列表
+  async getArticleList(params) {
+    return await get('/articleList',params)
   }
 }
