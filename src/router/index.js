@@ -35,8 +35,11 @@ const router = new Router({
     },
     {
       path: '/backend',
-      name: 'backend',
+      name: 'dashboard',
       component: index,
+      meta: {
+        title:'首页'
+      },
       children: backendRouter
     }
   ]

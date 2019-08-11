@@ -13,13 +13,12 @@
                 <el-menu-item v-for="(it, ind) in item.children" :key="ind" :index="it.path">{{it.name}}</el-menu-item>
               </el-submenu> 
           </template>
-        
         </el-menu>
       </el-aside>
       <el-container>
         <el-main class="pd-20">
           <el-breadcrumb separator-class="el-icon-arrow-right" class="fz12 mb-20">
-            <el-breadcrumb-item v-for="item in breadLIst" :key="item" :to="item">{{item}}</el-breadcrumb-item>
+            <el-breadcrumb-item v-for="(item,index) in breadLIst" :key="index" :to="item.name">{{item.meta.title}}</el-breadcrumb-item>
           </el-breadcrumb>
           <router-view></router-view>
         </el-main>
@@ -51,10 +50,23 @@ export default {
 
     }
   },
+  created() {
+    this.getBreadList()
+  },
+  watch:{
+   $route(){
+     this.getBreadList()
+   }
+ },
   methods: {
+    getBreadList() {
+      const matched = this.$route.matched.filter(item=>item.name)
+      console.log(matched,11)
+      this.breadLIst = matched
+    },
     handleSelect(key, keyPath) {
       this.$router.push(key)
-        this.breadLIst = keyPath
+        // this.breadLIst = keyPath
       }
   },
   components: {

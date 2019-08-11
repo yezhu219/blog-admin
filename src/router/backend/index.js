@@ -12,7 +12,7 @@ const backendRouter = [
     name: 'dashboard',
     component: dashboard,
     meta: {
-      title: '首页'
+      title: '看板'
     }
   },
   {
