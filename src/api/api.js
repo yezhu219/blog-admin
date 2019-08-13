@@ -26,5 +26,9 @@ export default {
   // 获取文章列表
   async getArticleList(params) {
     return await get('/articleList',params)
+  },
+  // 文章详情
+  async getArticleDetail(params) {
+    return await get('/detail',params)
   }
 }

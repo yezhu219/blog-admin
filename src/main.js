@@ -8,6 +8,7 @@ import axios from 'axios'
 import _ from 'loadsh'
 import api from '@/api/api.js'
 import store from '../store/index'
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 // import 'element-ui/lib/theme-chalk/index.css'
 import '@/style/theme/index.css'
@@ -16,7 +17,7 @@ import '@/style/theme/index.css'
 import './assets/css/reset.less'
 import './assets/css/resetFram.less'
 import './assets/css/public.less'
-
+Vue.use(CKEditor)
 Vue.use(ElementUI)
 console.log(process.env.baseUrl,'VUEiNDEX')
 Vue.config.productionTip = false

@@ -5,12 +5,12 @@
     </el-header>
     <el-container>
       <el-aside width="150px" class="box-s2">
-        <el-menu  background-color="#8ddad5" class="b-aside" default-active="测试1" @select="handleSelect">
-          <template v-for="item in navList "  :index="item.path">
-            <el-menu-item :index="item.path" :key="item.path" v-if="!item.children">{{item.name}}</el-menu-item>
-            <el-submenu  v-if="item.children" :index="item.path ||''" :key="item.path">
+        <el-menu  background-color="#8ddad5" class="b-aside" default-active="dashboard" @select="handleSelect">
+          <template v-for="item in navList " >
+            <el-menu-item :index="item.path" :key="item.index" v-if="!item.children">{{item.name}}</el-menu-item>
+            <el-submenu  v-if="item.children" :index="item.index" :key="item.index">
                 <template slot="title">{{item.name}}</template>
-                <el-menu-item v-for="(it, ind) in item.children" :key="ind" :index="it.path">{{it.name}}</el-menu-item>
+                <el-menu-item v-for="it in item.children" :key="it.index" :index="it.path">{{it.name}}</el-menu-item>
               </el-submenu> 
           </template>
         </el-menu>
@@ -36,15 +36,20 @@ export default {
   data() {
     return {
       navList:[
-        {name:"首页",path:'dashboard'},
+        {name:"首页",path:'dashboard',index:'1'},
         // {name:'文章管理',children:[{name:'编辑' },{name:'搜索'}]},
-        {name:'文章管理',children:[
-          {name:'文章列表',path:'article'},
-          {name:'文章分类',path:'articleClassify'},
-          {name:'excel导入导出',path:'exportExcelDemo'}
+        {name:'文章管理', index:'2',children:[
+          {name:'文章列表',path:'article',index:'2-1'},
+          {name:'文章分类',path:'articleClassify',index:'2-2'},
+          {name:'excel导入导出',path:'exportExcelDemo',index:'2-3'}
           ]},
-        {name:'爬取文章',path:'crawler'},
-        {name:'设置',path:'setting'},
+        { name:'Demo案例',index:'3',children:[
+          {name:'截图',path:'toImg',index:'3-1'},
+          // {name:'文章分类',path:'articleClassify'},
+          // {name:'excel导入导出',path:'exportExcelDemo'}
+        ]},  
+        {name:'爬取文章',path:'crawler',index:'4'},
+        {name:'设置',path:'setting',index:'5'},
       ],
       breadLIst:[]
 

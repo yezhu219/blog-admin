@@ -43,7 +43,8 @@
     </el-table-column>
     <el-table-column
     prop="updatedTime"
-    label="更新时间">
+    label="更新时间"
+    :formatter="formate">
     </el-table-column>
     <el-table-column
       label="操作"
@@ -62,50 +63,12 @@
 
 
 <script>
+ import moment from 'moment';
   export default {
     data() {
       return {
-        tableData: [
-        //   {
-        //   date: '2016-05-02',
-        //   name: '王小虎1',
-        //   address: '上海市普陀区金沙江路 1518 弄',
-        //   tag: '家',
-        //   id:'21'
-        // }, {
-        //   date: '2016-05-04',
-        //   name: '王小虎2',
-        //   address: '上海市普陀区金沙江路 1517 弄',
-        //   tag: '公司',
-        //   id:'21'
-        // }, {
-        //   date: '2016-05-01',
-        //   name: '王小虎3',
-        //   address: '上海市普陀区金沙江路 1519 弄',
-        //   tag: '家',
-        //   id:'21'
-        // }, {
-        //   date: '2016-05-03',
-        //   name: '王小虎4',
-        //   address: '上海市普陀区金沙江路 1516 弄',
-        //   tag: '公司',
-        //   id:'21'
-        // }, {
-        //   date: '2016-05-01',
-        //   name: '王小虎5',
-        //   address: '上海市普陀区金沙江路 1519 弄',
-        //   tag: '家',
-        //   id:'21'
-        // },
-        //  {
-        //   date: '2016-05-01',
-        //   name: '王小虎6',
-        //   address: '上海市普陀区金沙江路 1519 弄',
-        //   tag: '家',
-        //   id:'21'
-        // }
-        ],
-      selected:[]
+        tableData: [],
+        selected:[]
       }
     },
     async created(){
@@ -113,15 +76,20 @@
       this.tableData = list
     },
     methods: {
-      
+      formate(row,column){
+        // console.log(row,column)
+      },
       formatter(row, column) {
-        return row.date;
+       let time = row.date
+       let times= moment(time).format(`YYYY.MM.DD   hh:mm:ss`)
+        return times
       },
       filterTag(value, row) {
         return row.tag === value;
       },
       editArticle(data,index){
-        console.log(data,index)
+       
+       this.$router.push({path:'/backend/editeArticle',query:{id:data._id}})
       },
       deleteArticle(data,index){
         this.tableData.splice(index,1)

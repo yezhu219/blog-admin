@@ -4,6 +4,7 @@ import setting from '@/page/backend/setting'
 import crawler from '@/page/backend/crawler'
 import articleClassify from '@/page/backend/articleClassify'
 import exportExcelDemo from '@/page/backend/exportExcelDemo'
+import editeArticle from '@/page/backend/editeArticle'
 
 
 const backendRouter = [
@@ -55,7 +56,14 @@ const backendRouter = [
       title: 'excel导入导出'
     }
   },
-
+  {
+    path: 'editeArticle',
+    name: 'editeArticle',
+    component: editeArticle,
+    meta: {
+      title: '编辑文章'
+    }
+  },
 ]
 
 
