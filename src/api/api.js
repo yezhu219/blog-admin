@@ -30,5 +30,9 @@ export default {
   // 文章详情
   async getArticleDetail(params) {
     return await get('/detail',params)
-  }
+  },
+  //图片上传
+  async upLoadImg(params) {
+    return await post('/upLoadImg',params)
+  } 
 }
