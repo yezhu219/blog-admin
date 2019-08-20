@@ -127,7 +127,14 @@ export default {
       this.value = res.data.tag
     },
     async saveArticle() {
-      console.log(this.article,99)
+      let res = await this.$api.updateArticle({article:this.article})
+      if(res.data.msg=='success') {
+         this.$message({
+           showClose:true,
+           message:'保存成功',
+           type:'success'
+         })
+      }
     }
   }
 }

@@ -34,5 +34,9 @@ export default {
   //图片上传
   async upLoadImg(params) {
     return await post('/upLoadImg',params)
-  } 
+  },
+   //图片上传
+  async updateArticle(params) {
+    return await post('/updateArticle', params)
+  },
 }

@@ -55,9 +55,19 @@
       </template>
     </el-table-column>
   </el-table>
-  <div class="mutiple mt-20">
+  <el-row class="mt-20">
+    <el-col :span="8"><el-button type="primary" @click="delSelected">删除选中</el-button></el-col>
+    <el-col :span="8" :push="4">
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="1000">
+      </el-pagination>
+    </el-col>
+  </el-row>
+  <!-- <div class="mutiple mt-20">
     <el-button type="primary" @click="delSelected">删除选中</el-button>
-  </div>
+  </div> -->
 </div>
 </template>
 
