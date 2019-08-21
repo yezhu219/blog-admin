@@ -24,7 +24,6 @@ axios.interceptors.request.use(
       spinner: 'el-icon-loading',
       background: 'rgba(0, 0, 0, 0.7)'
     })
-    console.log(config,'axios')
     if (config.method === 'post') {
       if (config.url == '/upLoadImg') {
         config.headers['Content-Type'] = 'multipart/form-data'

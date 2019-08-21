@@ -60,8 +60,10 @@
     <el-col :span="8" :push="4">
       <el-pagination
         background
+        :page-size="10"
+        @current-change="handlePage"
         layout="prev, pager, next"
-        :total="1000">
+        :total="count">
       </el-pagination>
     </el-col>
   </el-row>
@@ -78,14 +80,28 @@
     data() {
       return {
         tableData: [],
-        selected:[]
+        selected:[],
+        count:null,
+        pageSize:10,
+        pageNumber:1,
       }
     },
     async created(){
-      let {list} = await this.$api.getArticleList()
-      this.tableData = list
+      // let {list,count} = await this.$api.getArticleList()
+      // this.tableData = list
+      // this.count = count
+      this.initData()
     },
     methods: {
+      async initData(){
+        let {list,count} = await this.$api.getArticleList({pageSize:this.pageSize,pageNumber:this.pageNumber})
+        this.tableData = list
+        this.count = count
+      },
+      handlePage(val){
+        this.pageNumber = val
+        this.initData()
+      },
       formate(row,column){
         // console.log(row,column)
       },

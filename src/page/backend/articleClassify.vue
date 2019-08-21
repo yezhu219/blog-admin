@@ -11,7 +11,11 @@
           label="分类名"
           width="200"
         ></el-table-column>
-        <el-table-column prop="type" label="颜色" width="200"></el-table-column>
+        <el-table-column  label="颜色" width="200">
+          <template slot-scope="scope">
+              <div :style="`background-color:${scope.row.color};`" style="width:40px;height:20px;"></div>
+          </template>
+        </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button
@@ -27,18 +31,23 @@
         </el-table-column>
       </el-table>
       <el-dialog title="添加分类" center :visible.sync="showAdd" >
-        <el-form :model="classifyData" label-width="100px">
+        <el-form :model="tag" label-width="100px">
           <el-form-item label="分类名称">
-            <el-input v-model="classifyData.name"></el-input>
+            <el-input v-model="tag.name"></el-input>
           </el-form-item>
-          <el-form-item label="颜色">
-            <el-select v-model="classifyData.color">
+          <el-form-item label="颜色" >
+            <!-- <el-select v-model="classifyData.color">
               <el-option label="danger1" value="danger1"></el-option>
               <el-option label="danger2" value="danger2"></el-option>
               <el-option label="danger3" value="danger3"></el-option>
               <el-option label="danger4" value="danger4"></el-option>
               <el-option label="dange5" value="danger5"></el-option>
-            </el-select>
+            </el-select> -->
+            <el-color-picker
+              v-model="tag.color"
+              show-alpha
+              :predefine="predefineColors">
+            </el-color-picker>
           </el-form-item>
         </el-form>
         <div slot="footer">
@@ -61,21 +70,59 @@ export default {
         { id: 1, name: 'node', type: 'warning' }
       ],
       showAdd: false,
-      classifyData: {
+      tag: {
         name: '',
-        type: ''
-      }
+        color: ''
+      },
+       color: 'rgba(255, 69, 0, 0.68)',
+        predefineColors: [
+          '#ff4500',
+          '#ff8c00',
+          '#ffd700',
+          '#90ee90',
+          '#00ced1',
+          '#1e90ff',
+          '#c71585',
+          'rgba(255, 69, 0, 0.68)',
+          'rgb(255, 120, 0)',
+          'hsv(51, 100, 98)',
+          'hsva(120, 40, 94, 0.5)',
+          'hsl(181, 100%, 37%)',
+          'hsla(209, 100%, 56%, 0.73)',
+          '#c7158577'
+        ]
     }
   },
-  created() {},
+  created() {
+    this.getTag()
+  },
   methods: {
-    addClassify() {
+    async addClassify() {
       this.showAdd = true
+    },
+    async getTag(){
+      let res = await  this.$api.getClassify({})
+      this.classify = res.data.data
     },
     editClassify(data) {},
     delClassify(data) {},
-    submitAdd() {
+    async submitAdd() {
       this.showAdd = false
+      let {data} = await this.$api.addClassify(this.tag)
+      if(data.data=='success') {
+        this.$message({
+          showClose: true,
+          message: '添加成功',
+          type: 'success'
+        })
+      }else {
+        this.$message({
+          showClose: true,
+          message: '添加失败',
+          type: 'error'
+        })
+      }
+      this.getTag()
     }
   }
 }

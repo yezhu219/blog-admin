@@ -1,7 +1,7 @@
 <template>
   <el-container class="backend-index">
     <el-header class="header box-s2">
-      <b-header></b-header>
+      <b-header @search="searchData"></b-header>
     </el-header>
     <el-container>
       <el-aside width="150px" class="box-s2">
@@ -20,7 +20,7 @@
           <el-breadcrumb separator-class="el-icon-arrow-right" class="fz12 mb-20">
             <el-breadcrumb-item v-for="(item,index) in breadLIst" :key="index" :to="item.name">{{item.meta.title}}</el-breadcrumb-item>
           </el-breadcrumb>
-          <router-view></router-view>
+          <router-view ></router-view>
         </el-main>
         <el-footer class="text-c b-footer"> @POWERED BY  WangBing</el-footer>
       </el-container>
@@ -51,7 +51,7 @@ export default {
         {name:'爬取文章',path:'crawler',index:'4'},
         {name:'设置',path:'setting',index:'5'},
       ],
-      breadLIst:[]
+      breadLIst:[],
 
     }
   },
@@ -70,7 +70,11 @@ export default {
     },
     handleSelect(key, keyPath) {
       this.$router.push(key)
-      }
+    },
+    searchData(val) {
+      this.$router.push({path:'search',query:{keyWord:val}})
+
+    }
   },
   components: {
     bHeader,

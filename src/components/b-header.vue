@@ -4,7 +4,7 @@
     <el-col :span="13"> BLOG管理系统</el-col>
     <el-col :span="8" class="fz14 c-333 text-r">
       <el-col :span="15">
-        <el-input size="mini" class="va-m" v-model="searchValue">
+        <el-input size="mini" class="va-m" v-model="searchValue" placeholder="关键词：标题、作者、文章内容">
           <el-button slot="append" icon="el-icon-search" type="primary " @click="search"></el-button>
         </el-input>
       </el-col>

@@ -39,4 +39,20 @@ export default {
   async updateArticle(params) {
     return await post('/updateArticle', params)
   },
+  //模糊搜索
+  async search(params) {
+    return await get('/search', params)
+  },
+  //添加分类
+  async addClassify(params) {
+    return await post('/addClassify', params)
+  },
+  //获取分类
+  async getClassify(params) {
+    return await get('/getClassify', params)
+  },
+  //删除分类
+  async delClassify(params) {
+    return await post('/delClassify', params)
+  },
 }

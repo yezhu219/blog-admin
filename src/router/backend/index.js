@@ -5,6 +5,7 @@ import crawler from '@/page/backend/crawler'
 import articleClassify from '@/page/backend/articleClassify'
 import exportExcelDemo from '@/page/backend/exportExcelDemo'
 import editeArticle from '@/page/backend/editeArticle'
+import search from '@/page/backend/search'
 
 
 const backendRouter = [
@@ -62,6 +63,14 @@ const backendRouter = [
     component: editeArticle,
     meta: {
       title: '编辑文章'
+    }
+  },
+  {
+    path: 'search',
+    name: 'search',
+    component: search,
+    meta: {
+      title: '搜索'
     }
   },
 ]
