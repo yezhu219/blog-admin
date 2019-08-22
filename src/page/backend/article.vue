@@ -31,7 +31,7 @@
         <el-tag
         v-for=" (tag,index) in scope.row.tag"
         :key="index"
-        :type="getType(tag)"
+        :color="getType(tag)"
         style="margin-right:5px;"
         disable-transitions>{{tag}}</el-tag>
       </template>
@@ -84,19 +84,20 @@
         count:null,
         pageSize:10,
         pageNumber:1,
+        tagList:[]
       }
     },
     async created(){
-      // let {list,count} = await this.$api.getArticleList()
-      // this.tableData = list
-      // this.count = count
+     
       this.initData()
     },
     methods: {
       async initData(){
         let {list,count} = await this.$api.getArticleList({pageSize:this.pageSize,pageNumber:this.pageNumber})
+        let {data} = await this.$api.getClassify()
         this.tableData = list
         this.count = count
+        this.tagList = data.data
       },
       handlePage(val){
         this.pageNumber = val
@@ -111,7 +112,8 @@
         return times
       },
       filterTag(value, row) {
-        return row.tag === value;
+        console.log(value,row,222)
+        return row.tag.includes(value)
       },
       editArticle(data,index){
        
@@ -144,16 +146,8 @@
         return arr
       },
       getType(tag) {
-        switch(tag) {
-          case 'js':
-            return 'sucess'
-          case 'html':
-            return 'info'
-          case 'css':
-            return  'danger'
-          default:
-            return 'warning'
-        }
+        let res = this.tagList.find(item=>item.name == tag)
+        return res.color
       }
      
     }

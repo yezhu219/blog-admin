@@ -11,8 +11,8 @@
         <el-input v-model="article.date"  size="mini"></el-input>
       </el-form-item>
       <el-form-item label="分类" >
-        <el-select v-model="value" multiple >
-          <el-option v-for="(item,index) in  article.tag" :key="index" :value="item">{{item}}</el-option>
+        <el-select v-model="article.tag" multiple >
+          <el-option v-for="(item,index) in  tagList" :key="index" :value="item.name">{{item.name}}</el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="简介:">
@@ -90,25 +90,11 @@ export default {
             }).catch(()=>{
               failure('上传失败')
             })
-            // axios({
-            //   method: 'POST',
-            //   // 这里是你的上传地址
-            //   url: 'http://127.0.0.1:3001/v1/uploadImg',
-            //   data: formData,
-            // })
-            // .then((res) => {
-            //   // 这里返回的是你图片的地址
-            //   console.log(res,2222)
-            //   success(res.data.url)
-            // })
-            // .catch(() => {
-            //   failure('上传失败')
-            // })
-          // }
         }
 
         },
-      value:[]
+      value:[],
+      tagList:[]
     }
   },
   created() {
@@ -123,6 +109,8 @@ export default {
   methods: {
     async getDetail() {
       let res = await this.$api.getArticleDetail({_id:this.$route.query.id})
+      let {data} = await this.$api.getClassify()
+      this.tagList= data.data
       this.article = res.data
       this.value = res.data.tag
     },

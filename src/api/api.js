@@ -55,4 +55,8 @@ export default {
   async delClassify(params) {
     return await post('/delClassify', params)
   },
+  //编辑分类
+  async editeClassify(params) {
+    return await post('/editeClassify', params)
+  },
 }
