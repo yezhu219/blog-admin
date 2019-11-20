@@ -51,7 +51,7 @@ export default {
       article: {
         title:'',
         author:'',
-        autorImg:'',
+        authorImg:'',
         content:'',
         date:'',
         des:'',
@@ -59,7 +59,7 @@ export default {
         from:'',
         like:'',
         view:'',
-        isDel:false,
+        isDel:true,
         desImg:'',
       },
       rules:{

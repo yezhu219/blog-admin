@@ -1,0 +1,20 @@
+/*重置element样式*/
+.el-main {
+  padding: 0;
+}
+.el-container {
+  height: 100%;
+}
+.el-submenu .el-menu-item {
+  min-width: auto;
+}
+.el-form-item {
+  margin-bottom: 20px;
+}
+/*特殊样式*/
+.el-table__header th {
+  background-color: #f4f4f4;
+}
+.el-select {
+  width: 100%;
+}
