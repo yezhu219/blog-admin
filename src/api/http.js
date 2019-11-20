@@ -13,7 +13,8 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 Vue.prototype.$static = ''
 
 // 配置接口地址
-axios.defaults.baseURL = 'http://127.0.0.1:3001/v1'
+// axios.defaults.baseURL = 'http://127.0.0.1:3001/v1'
+axios.defaults.baseURL = 'http://www.z.cn/api/v1'
 var loadingInstance
 // POST传参序列化(添加请求拦截器)
 axios.interceptors.request.use(
@@ -29,7 +30,7 @@ axios.interceptors.request.use(
         config.headers['Content-Type'] = 'multipart/form-data'
         
       } else {
-        
+        // config.headers['Content-Type'] = 'application/json'
         config.data = qs.stringify(config.data)
       }
     }
@@ -44,7 +45,7 @@ axios.interceptors.request.use(
 // 返回状态判断(添加响应拦截器)
 axios.interceptors.response.use(
   res => {
-    if (res.data.code === 200) {
+    if (res.status === 200) {
       loadingInstance.close()
       return res
     } else {

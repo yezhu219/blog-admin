@@ -6,6 +6,9 @@ import articleClassify from '@/page/backend/articleClassify'
 import exportExcelDemo from '@/page/backend/exportExcelDemo'
 import editeArticle from '@/page/backend/editeArticle'
 import search from '@/page/backend/search'
+import toImg from '@/page/backend/toImg'
+import power from '@/page/backend/power'
+import userInfo from '@/page/backend/userInfo'
 
 
 const backendRouter = [
@@ -71,6 +74,30 @@ const backendRouter = [
     component: search,
     meta: {
       title: '搜索'
+    }
+  },
+  {
+    path: 'toImg',
+    name: 'toImg',
+    component: toImg,
+    meta: {
+      title: '截图'
+    }
+  },
+  {
+    path: 'power',
+    name: 'power',
+    component: power,
+    meta: {
+      title: '用户管理'
+    }
+  },
+  {
+    path: 'userInfo',
+    name: 'userInfo',
+    component: userInfo,
+    meta: {
+      title: '个人资料'
     }
   },
 ]

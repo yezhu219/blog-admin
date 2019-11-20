@@ -31,13 +31,21 @@ export default {
   async getArticleDetail(params) {
     return await get('/detail',params)
   },
+  // 删除单个文章
+  async delArticleOne(params) {
+    return await post('/delArticleOne',params)
+  },
+  // 删除多个文章
+  async delArticleMany(params) {
+    return await post('/delArticleMany', params)
+  },
   //图片上传
   async upLoadImg(params) {
     return await post('/upLoadImg',params)
   },
-   //图片上传
+   //编辑文章
   async updateArticle(params) {
-    return await post('/updateArticle', params)
+    return await post('/updateArticle?XDEBUG_SESSION_START=14856', params)
   },
   //模糊搜索
   async search(params) {

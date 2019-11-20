@@ -1,7 +1,7 @@
 <template>
   <el-container class="backend-index">
     <el-header class="header box-s2">
-      <b-header @search="searchData"></b-header>
+      <b-header @search="searchData" @logOut="logOut" @changePwd="changePwd"></b-header>
     </el-header>
     <el-container>
       <el-aside width="150px" class="box-s2">
@@ -25,6 +25,7 @@
         <el-footer class="text-c b-footer"> @POWERED BY  WangBing</el-footer>
       </el-container>
     </el-container>
+    <b-changePwd :show="showChangePwd" @close="showChangePwd = false"></b-changePwd>
   </el-container>
 </template>
 
@@ -32,27 +33,28 @@
 <script>
 import bHeader from '@/components/b-header'
 import bAside from '@/components/b-aside'
+import bChangePwd from '@/components/b-changePwd'
 export default {
   data() {
     return {
       navList:[
         {name:"首页",path:'dashboard',index:'1'},
-        // {name:'文章管理',children:[{name:'编辑' },{name:'搜索'}]},
         {name:'文章管理', index:'2',children:[
-          {name:'文章列表',path:'article',index:'2-1'},
+          {name:'文章管理',path:'article',index:'2-1'},
           {name:'文章分类',path:'articleClassify',index:'2-2'},
           {name:'excel导入导出',path:'exportExcelDemo',index:'2-3'}
           ]},
         { name:'Demo案例',index:'3',children:[
           {name:'截图',path:'toImg',index:'3-1'},
-          // {name:'文章分类',path:'articleClassify'},
-          // {name:'excel导入导出',path:'exportExcelDemo'}
         ]},  
         {name:'爬取文章',path:'crawler',index:'4'},
-        {name:'设置',path:'setting',index:'5'},
+        {name:'设置',path:'setting',index:'5',children:[
+          {name:'用户管理',path:'power',index:'5-1'},
+          {name:'个人资料',path:'userInfo',index:'5-2'},
+        ]},
       ],
       breadLIst:[],
-
+      showChangePwd:false
     }
   },
   created() {
@@ -73,12 +75,19 @@ export default {
     },
     searchData(val) {
       this.$router.push({path:'search',query:{keyWord:val}})
+    },
+    changePwd()  {
+      console.log('change')
+      this.showChangePwd = true
+    },
+    logOut() {
 
     }
   },
   components: {
     bHeader,
     bAside,
+    bChangePwd
   }
 
 }

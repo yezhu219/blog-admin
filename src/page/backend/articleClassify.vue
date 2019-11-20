@@ -1,9 +1,7 @@
 <template>
   <div class="classify">
-    <el-button type="primary" class="mb-20" @click="addClassify"
-      >增加分类</el-button
-    >
-    <div class="table-classify">
+    <el-button type="primary" class="mb-20" @click="addClassify" >增加分类</el-button>
+    <div class="table-classify" v-if="classify.length>0">
       <el-table :data="classify" size="mini" border>
         <el-table-column type="index"></el-table-column>
         <el-table-column
@@ -30,19 +28,15 @@
           </template>
         </el-table-column>
       </el-table>
-      <el-dialog :title="title" center :visible.sync="showAdd" >
+      
+    </div>
+
+    <el-dialog :title="title" center :visible.sync="showAdd" >
         <el-form :model="tag" label-width="100px">
           <el-form-item label="分类名称">
             <el-input v-model="tag.name"></el-input>
           </el-form-item>
           <el-form-item label="颜色" >
-            <!-- <el-select v-model="classifyData.color">
-              <el-option label="danger1" value="danger1"></el-option>
-              <el-option label="danger2" value="danger2"></el-option>
-              <el-option label="danger3" value="danger3"></el-option>
-              <el-option label="danger4" value="danger4"></el-option>
-              <el-option label="dange5" value="danger5"></el-option>
-            </el-select> -->
             <el-color-picker
               v-model="tag.color"
               show-alpha
@@ -55,7 +49,6 @@
           <el-button type="warning" @click="closeDialog" > 取消</el-button>
         </div>
       </el-dialog>
-    </div>
   </div>
 </template>
 
@@ -63,12 +56,7 @@
 export default {
   data() {
     return {
-      classify: [
-        { id: 1, name: 'js', type: 'warning' },
-        { id: 1, name: 'html', type: 'warning' },
-        { id: 1, name: 'css', type: 'warning' },
-        { id: 1, name: 'node', type: 'warning' }
-      ],
+      classify: [ ],
       showAdd: false,
       tag: {
         name: '',
@@ -100,11 +88,12 @@ export default {
   },
   methods: {
     async addClassify() {
+      console.log('click')
       this.showAdd = true
     },
     async getTag(){
       let res = await  this.$api.getClassify({})
-      this.classify = res.data.data
+      this.classify = res
     },
     editClassify(val) {
       this.tag =val
@@ -119,7 +108,7 @@ export default {
           cancelButtonText: '取消',
           type: 'warning'
         }).then(async ()=>{
-          let {data} = await this.$api.delClassify({name:val.name})
+          let data = await this.$api.delClassify({id:val.id})
           this.showTip(data,'删除')
           this.getTag()
         })
@@ -135,12 +124,11 @@ export default {
         return
       }
       if(this.type == 'add') {
-        let { data } = await this.$api.addClassify(this.tag)
+        let  data  = await this.$api.addClassify(this.tag)
         this.showTip(data,'添加')
       }else {
         let res = await this.$api.editeClassify(this.tag)
-        console.log(res.data,333)
-         this.showTip(res.data,'编辑')
+         this.showTip(res,'编辑')
         this.type='add'
         this.title = '添加分类'
         }
@@ -149,7 +137,7 @@ export default {
       this.showAdd = false
     },
     showTip(data,msg) {
-      if(data.data=='success') {
+      if(data) {
         this.$message({
           showClose: true,
           message: msg+'成功',
@@ -171,9 +159,7 @@ export default {
 </script>
 
 <style lang="less">
-// .classify {
-//   min-width: 800px;
-// }
+
 .table-classify {
   width: 600px;
 }

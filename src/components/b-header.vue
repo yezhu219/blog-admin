@@ -10,11 +10,11 @@
       </el-col>
       <el-col :span="9" class="text-r">
         <el-avatar :size="30" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png" class="va-m"></el-avatar>
-        <el-dropdown >
+        <el-dropdown class="cp">
             <span>yezhu219<i class="el-icon-arrow-down"></i></span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>修改密码</el-dropdown-item>
-            <el-dropdown-item>注销登录</el-dropdown-item>
+            <el-dropdown-item @click.native="changePwd">修改密码</el-dropdown-item>
+            <el-dropdown-item @click.native="logOut">注销登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-col>
@@ -34,6 +34,12 @@ export default {
   methods: {
     search() {
      this.$emit('search',this.searchValue)
+    },
+    changePwd() {
+      this.$emit('changePwd')
+    },
+    logOut() {
+      this.$emit('logOut')
     }
   }
 }

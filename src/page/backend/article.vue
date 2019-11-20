@@ -6,6 +6,7 @@
     border
     size="mini"
     @selection-change="sel"
+    v-if="tableData.length>0"
     style="width: 100%">
     <el-table-column type="selection" width="50" label="全选"></el-table-column>
     <el-table-column type="index" width="50"></el-table-column>
@@ -55,7 +56,7 @@
       </template>
     </el-table-column>
   </el-table>
-  <el-row class="mt-20">
+  <el-row class="mt-20" v-if="tableData.length>0">
     <el-col :span="8"><el-button type="primary" @click="delSelected">删除选中</el-button></el-col>
     <el-col :span="8" :push="4">
       <el-pagination
@@ -65,6 +66,12 @@
         layout="prev, pager, next"
         :total="count">
       </el-pagination>
+    </el-col>
+  </el-row>
+  <el-row v-if="tableData.length==0">
+    <el-col class="text-c c-999">
+      <p class=" mb-10">您还没有发布过文章~~~~</p>
+      <el-button type="primary" @click="addArticle">写文章</el-button>
     </el-col>
   </el-row>
   <!-- <div class="mutiple mt-20">
@@ -119,16 +126,48 @@
        
        this.$router.push({path:'/backend/editeArticle',query:{id:data._id}})
       },
-      deleteArticle(data,index){
-        this.tableData.splice(index,1)
+      async deleteArticle(data,index){
+        let res = await this.$api.delArticleOne(data)
+        console.log(res,111)
+        if(res.data.data == 'success') {
+          this.$message({
+            showClose:true,
+            message:'删除成功',
+            type:'success'
+          })
+        }else {
+          this.$message({
+            showClose:true,
+            message:'删除失败',
+            type:'error'
+          })
+        }
+        
+        this.initData()
       },
       sel(data){
         console.log(data)
         this.selected = data
 
       },
-      delSelected() {
-
+      async delSelected() {
+        let ids = this.selected.map(item=>item._id)
+        let res =await this.$api.delArticleMany({ids})
+        if(res.data.data == 'success') {
+          this.$message({
+            showClose:true,
+            message:'删除成功',
+            type:'success'
+          })
+        }else {
+          this.$message({
+            showClose:true,
+            message:'删除失败',
+            type:'error'
+          })
+        }
+        
+        this.initData()
       },
       getTextArray() {
         const arr= []
@@ -148,6 +187,10 @@
       getType(tag) {
         let res = this.tagList.find(item=>item.name == tag)
         return res.color
+      },
+      addArticle() {
+        console.log('aaa')
+        this.$router.push({path:'/backend/editeArticle'})
       }
      
     }

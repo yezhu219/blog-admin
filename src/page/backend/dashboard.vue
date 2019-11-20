@@ -1,6 +1,13 @@
 <template>
-  <div>
-    dashboard
+  <div class="dashboard">
+    <el-row>
+      <el-col>文章总数</el-col>
+      总点击数
+      昨日点击数
+      今日点击数
+      
+      
+    </el-row>
   </div>
 </template>
 
@@ -8,7 +15,8 @@
 export default {
   data() {
     return {
-
+        
+      
     }
   },
   created() {
@@ -17,11 +25,16 @@ export default {
   methods: {
     test(a,b='2') {
       console.log(a,b)
+    },
+    changeBlur() {
+      console.log(this.value,99)
     }
   }
 }
 </script>
 
 <style lang="less">
-
+.dashboard {
+  background-color: #fff;
+}
 </style>

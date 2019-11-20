@@ -1,23 +1,24 @@
 <template>
   <div>
-    <el-form :model="article" label-width="100px"   style="width:70%;" class="mg-a fz12">
-      <el-form-item label="文章标题:">
+    <el-form :model="article" label-width="100px" :rules="rules"  style="width:70%;" class="mg-a fz12">
+      <el-form-item label="文章标题:" prop="title">
         <el-input v-model="article.title" size="mini"></el-input>
       </el-form-item>
-      <el-form-item label="作者:">
+      <el-form-item label="作者:" prop="author">
         <el-input v-model="article.author"  size="mini"></el-input>
       </el-form-item>
-      <el-form-item label="创建时间:">
+      <!-- <el-form-item label="创建时间:">
         <el-input v-model="article.date"  size="mini"></el-input>
-      </el-form-item>
-      <el-form-item label="分类" >
+      </el-form-item> -->
+      <el-form-item label="分类:" prop="tag">
         <el-select v-model="article.tag" multiple >
           <el-option v-for="(item,index) in  tagList" :key="index" :value="item.name">{{item.name}}</el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="简介:">
+      <el-form-item label="简介:" prop="des">
         <el-input v-model="article.des" type="textarea" :rows="2"  resize="none" class="fz12"></el-input>
       </el-form-item>
+      <div class="mb-20"></div>
       <Editor id="tinymce" v-model="article.content" :init="init"></Editor>
     </el-form>
     <el-row class="text-c mt-20">
@@ -55,7 +56,17 @@ export default {
         date:'',
         des:'',
         tag:[],
-        _id:''
+        from:'',
+        like:'',
+        view:'',
+        isDel:false,
+        desImg:'',
+      },
+      rules:{
+        title:[{required:true,message:'请输入标题',trigger:'blur'}],  
+        author:[{required:true,message:'请输入作者',trigger:'blur'}],  
+        des:[{required:true,message:'请输入简介',trigger:'blur'}],  
+        tag:[{required:true,message:'请输入分类',trigger:'blur'}],  
       },
       init: {
         language_url: '/static/tinymce/zh_CN.js',
@@ -98,6 +109,8 @@ export default {
     }
   },
   created() {
+    this.getClassify()
+    if(!this.$route.query.id) return
     this.getDetail()
   },
   mounted() {
@@ -109,14 +122,29 @@ export default {
   methods: {
     async getDetail() {
       let res = await this.$api.getArticleDetail({_id:this.$route.query.id})
-      let {data} = await this.$api.getClassify()
-      this.tagList= data.data
       this.article = res.data
-      this.value = res.data.tag
+      this.value = res.data&&res.data.tag
+    },
+    async getClassify() {
+      let data = await this.$api.getClassify()
+      this.tagList= data
+      if(data.length==0) {
+        console.log('bbb')
+        this.$confirm('您还没有分类，请先添加分类。', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$router.push('/backend/articleClassify')
+        }).catch(() => {
+                    
+        })
+        return 
+      }
     },
     async saveArticle() {
-      let res = await this.$api.updateArticle({article:this.article})
-      if(res.data.msg=='success') {
+      let res = await this.$api.updateArticle(this.article)
+      if(res) {
          this.$message({
            showClose:true,
            message:'保存成功',

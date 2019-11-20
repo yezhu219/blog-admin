@@ -10,7 +10,15 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      "/dev": {
+        target: "http://www.z.cn",          //涛涛
+        changeOrigin: true,
+        pathRewrite: {
+          "^/dev": "" //这里理解成用‘/dev'代替target里面的地址，后面组件中我们掉接口时直接用dev代替
+        }
+      },
+    },
 
     // Various Dev Server settings
     host: '127.0.0.1', // can be overwritten by process.env.HOST
