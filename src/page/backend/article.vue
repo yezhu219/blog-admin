@@ -38,14 +38,14 @@
       </template>
     </el-table-column>
      <el-table-column
-      prop="ctime"
+      prop="create_time"
       label="发表时间"
-      :formatter="formatter">
+      >
     </el-table-column>
     <el-table-column
-    prop="updatedTime"
+    prop="update_time"
     label="更新时间"
-    :formatter="formate">
+    >
     </el-table-column>
     <el-table-column
       label="操作"
@@ -57,7 +57,10 @@
     </el-table-column>
   </el-table>
   <el-row class="mt-20" v-if="tableData.length>0">
-    <el-col :span="8"><el-button type="primary" @click="delSelected">删除选中</el-button></el-col>
+    <el-col :span="8">
+      <el-button type="danger" @click="delSelected">删除选中</el-button>
+       <el-button type="primary" @click="addArticle">写文章</el-button>
+    </el-col>
     <el-col :span="8" :push="4">
       <el-pagination
         background
@@ -100,10 +103,11 @@
     },
     methods: {
       async initData(){
-        let {list,count} = await this.$api.getArticleList({pageSize:this.pageSize,pageNumber:this.pageNumber})
-        let {data} = await this.$api.getClassify()
-        this.tableData = list
-        this.count = count
+        let list = await this.$api.getArticleList({pageSize:this.pageSize,pageNumber:this.pageNumber})
+        let data = await this.$api.getClassify()
+        console.log(list,'list')
+        this.tableData = list.data.data
+        this.count = list.count
         this.tagList = data.data
       },
       handlePage(val){
@@ -124,12 +128,12 @@
       },
       editArticle(data,index){
        
-       this.$router.push({path:'/backend/editeArticle',query:{id:data._id}})
+       this.$router.push({path:'/backend/editeArticle',query:{id:data.id}})
       },
       async deleteArticle(data,index){
         let res = await this.$api.delArticleOne(data)
         console.log(res,111)
-        if(res.data.data == 'success') {
+        if(res) {
           this.$message({
             showClose:true,
             message:'删除成功',
@@ -151,9 +155,10 @@
 
       },
       async delSelected() {
-        let ids = this.selected.map(item=>item._id)
+        let ids = this.selected.map(item=>item.id)
+        console.log(ids,'ids')
         let res =await this.$api.delArticleMany({ids})
-        if(res.data.data == 'success') {
+        if(res) {
           this.$message({
             showClose:true,
             message:'删除成功',
@@ -185,8 +190,8 @@
         return arr
       },
       getType(tag) {
-        let res = this.tagList.find(item=>item.name == tag)
-        return res.color
+        // let res = this.tagList.find(item=>item.name == tag)
+        // return res.color
       },
       addArticle() {
         console.log('aaa')

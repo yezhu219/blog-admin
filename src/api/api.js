@@ -29,7 +29,7 @@ export default {
   },
   // 文章详情
   async getArticleDetail(params) {
-    return await get('/detail',params)
+    return await get('/articleDetail',params)
   },
   // 删除单个文章
   async delArticleOne(params) {

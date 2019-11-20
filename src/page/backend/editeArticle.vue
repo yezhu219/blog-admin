@@ -59,7 +59,7 @@ export default {
         from:'',
         like:'',
         view:'',
-        isDel:true,
+        isDel:'',
         desImg:'',
       },
       rules:{
@@ -121,9 +121,9 @@ export default {
   },
   methods: {
     async getDetail() {
-      let res = await this.$api.getArticleDetail({_id:this.$route.query.id})
-      this.article = res.data
-      this.value = res.data&&res.data.tag
+      let res = await this.$api.getArticleDetail({id:this.$route.query.id})
+      this.article = res
+      this.value = res.tag
     },
     async getClassify() {
       let data = await this.$api.getClassify()
