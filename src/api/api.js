@@ -5,7 +5,7 @@ import {
 export default {
   //登录
   async login(params) {
-    return await post('/login', params)
+    return await post('/login?XDEBUG_SESSION_START=10869', params)
   },
   //注册
   async register(params) {

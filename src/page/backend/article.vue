@@ -105,10 +105,10 @@
       async initData(){
         let list = await this.$api.getArticleList({pageSize:this.pageSize,pageNumber:this.pageNumber})
         let data = await this.$api.getClassify()
-        console.log(list,'list')
+        console.log(data,'list')
         this.tableData = list.data.data
         this.count = list.count
-        this.tagList = data.data
+        this.tagList = data
       },
       handlePage(val){
         this.pageNumber = val
@@ -190,8 +190,8 @@
         return arr
       },
       getType(tag) {
-        // let res = this.tagList.find(item=>item.name == tag)
-        // return res.color
+        let res = this.tagList.find(item=>item.name == tag)
+        return res.color
       },
       addArticle() {
         console.log('aaa')

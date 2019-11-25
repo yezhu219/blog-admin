@@ -15,6 +15,7 @@ Vue.prototype.$static = ''
 // 配置接口地址
 // axios.defaults.baseURL = 'http://127.0.0.1:3001/v1'
 axios.defaults.baseURL = 'http://www.z.cn/api/v1'
+// axios.defaults.baseURL = 'http://118.178.181.177:6302/api/v1'
 var loadingInstance
 // POST传参序列化(添加请求拦截器)
 axios.interceptors.request.use(
@@ -34,6 +35,7 @@ axios.interceptors.request.use(
         config.data = qs.stringify(config.data)
       }
     }
+    config.headers.token='abcd'
     return config
   },
   err => {

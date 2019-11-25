@@ -3,7 +3,7 @@
    <el-row class="b-container pa text-c box-s1" >
      <el-col :span="9"><img src="../assets/img/flower.jpg" class="b-left" height="300px"></el-col>
      <el-col :span="15" class="pd-20 " >
-      <el-col class="fz28 c-333 mb-20 ">Blog后台登录系统</el-col>
+      <el-col class="fz28 c-333 mb-20 ">Blog后台登录</el-col>
       <el-row class=" mb-10 fz12">
         <el-col  class="item">用户名：</el-col>
         <el-col ><input type="text" class="b-input fz12 c-666" v-model="userName"></el-col>

@@ -102,7 +102,7 @@ export default {
 }
 .box {
   height: 100%;
-  background-color: red;
+  // background-color: red;
 }
 
 </style>
