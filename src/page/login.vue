@@ -45,7 +45,8 @@ export default {
         return
       }
       let { data } = await this.$api.login({userName:this.userName,password:this.password,remember:this.remember})
-      if(data.msg=='sucess') {
+      console.log(data,'aaa')
+      if(data.token) {
         this.$store.commit('setToken',data.token)
         localStorage.setItem('remember',this.remember)
         localStorage.setItem('userName',this.userName)

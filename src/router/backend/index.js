@@ -17,7 +17,8 @@ const backendRouter = [
     name: 'dashboard',
     component: dashboard,
     meta: {
-      title: '看板'
+      title: '看板',
+      requireAuth: true
     }
   },
   {
@@ -25,7 +26,8 @@ const backendRouter = [
     name: 'article',
     component: article,
     meta: {
-      title: '文章管理'
+      title: '文章管理',
+      requireAuth: true
     }
   },
   {
@@ -33,7 +35,8 @@ const backendRouter = [
     name: 'crawler',
     component: crawler,
     meta: {
-      title: '爬取文章'
+      title: '爬取文章',
+      requireAuth: true
     }
   },
   {
@@ -41,7 +44,8 @@ const backendRouter = [
     name: 'setting',
     component: setting,
     meta: {
-      title: '设置'
+      title: '设置',
+      requireAuth: true
     }
   },
   {
@@ -49,7 +53,8 @@ const backendRouter = [
     name: 'articleClassify',
     component: articleClassify,
     meta: {
-      title: '文章标签'
+      title: '文章标签',
+      requireAuth: true
     }
   },
   {
@@ -57,7 +62,8 @@ const backendRouter = [
     name: 'exportExcelDemo',
     component: exportExcelDemo,
     meta: {
-      title: 'excel导入导出'
+      title: 'excel导入导出',
+      requireAuth: true
     }
   },
   {
@@ -65,7 +71,8 @@ const backendRouter = [
     name: 'editeArticle',
     component: editeArticle,
     meta: {
-      title: '编辑文章'
+      title: '编辑文章',
+      requireAuth: true
     }
   },
   {
@@ -73,7 +80,8 @@ const backendRouter = [
     name: 'search',
     component: search,
     meta: {
-      title: '搜索'
+      title: '搜索',
+      requireAuth: true
     }
   },
   {
@@ -81,7 +89,8 @@ const backendRouter = [
     name: 'toImg',
     component: toImg,
     meta: {
-      title: '截图'
+      title: '截图',
+      requireAuth: true
     }
   },
   {
@@ -89,7 +98,8 @@ const backendRouter = [
     name: 'power',
     component: power,
     meta: {
-      title: '用户管理'
+      title: '用户管理',
+      requireAuth: true
     }
   },
   {
@@ -97,7 +107,8 @@ const backendRouter = [
     name: 'userInfo',
     component: userInfo,
     meta: {
-      title: '个人资料'
+      title: '个人资料',
+      requireAuth: true
     }
   },
 ]

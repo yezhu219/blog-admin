@@ -21,24 +21,34 @@ const router = new Router({
     {
       path: '/login',
       name: 'login',
-      component:login
+      component: login,
+      meta: {
+        requireAuth:false
+      }
     },
     {
       path: '/register',
       name: 'register',
-      component: register
+      component: register,
+      meta: {
+        requireAuth: false
+      }
     },
     {
       path: '/findPassword',
       name: 'findPassword',
-      component: findPassword
+      component: findPassword,
+      meta: {
+        requireAuth: false
+      }
     },
     {
       path: '/backend',
       name: 'dashboard',
       component: index,
       meta: {
-        title:'首页'
+        title: '首页',
+        requireAuth:true
       },
       children: backendRouter
     }

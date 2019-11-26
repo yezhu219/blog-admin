@@ -23,6 +23,19 @@ Vue.prototype.$axios = axios
 Vue.prototype.$api = api
 Vue.prototype._ = _
 
+
+
+router.beforeEach((to,form,next) => {
+  if (to.matched.some(res => res.meta.requireAuth)) {
+    let token = store.state.token
+    if (!token) {
+      next('/login')
+    }
+    next()
+  }
+  next()
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
