@@ -13,7 +13,6 @@ axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded
 Vue.prototype.$static = ''
 
 // 配置接口地址
-// axios.defaults.baseURL = 'http://127.0.0.1:3001/v1'
 axios.defaults.baseURL = 'http://www.z.cn/api/v1'
 // axios.defaults.baseURL = 'http://118.178.181.177:6302/api/v1'
 var loadingInstance
