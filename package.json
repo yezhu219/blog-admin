@@ -21,7 +21,7 @@
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "sortablejs": "^1.10.0-rc3",
-    "tinymce": "^5.0.13",
+    "tinymce": "^5.4.0",
     "tinymce-imageupload": "^1.0.5",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
