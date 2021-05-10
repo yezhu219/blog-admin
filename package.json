@@ -18,7 +18,7 @@
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "loadsh": "0.0.4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "moment": "^2.24.0",
     "sortablejs": "^1.10.0-rc3",
     "tinymce": "^5.0.13",
